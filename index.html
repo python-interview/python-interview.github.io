@@ -47,6 +47,9 @@
     from browser import document, window 
     import tb as traceback
     import sys
+    import base64
+
+    print(base64.b64decode(document.query['q']))
     
     class CustomStdout:
         def write(self, txt):
@@ -61,11 +64,16 @@
         except Exception:
             print(traceback.format_exc()) 
     
-    # document['run'].bind('click',run)
     editor = window.ace.edit("editor")
     exec(editor.getValue())
 
     document['runner'].bind('click', run)
+
+    def lol(e):
+        if e.ctrlKey and e.key == 'Enter':
+            run(None)
+
+    document.bind('keyup', lol)
 </script>
 
 </body>
